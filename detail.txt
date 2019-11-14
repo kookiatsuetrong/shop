@@ -1,0 +1,44 @@
+Installing MySQL on Windows:
+1. Download MySQL Community Edition (Zip Format)
+2. Extract to C:\mysql
+3. Open the first command line window and execute the following command:
+   \mysql\bin\mysqld.exe --initialize --console
+4. Copy the default password from the above command.
+5. From the first command line window
+   \mysql\bin\mysqld.exe --console
+6. Open another command line window and execute the following command:
+   \mysql\bin\mysql.exe --user root --password    [ enter ]
+   Enter Password: ****
+7. Change the root password by execute this command:
+   alter user root@localhost identified by 'p@ssword';
+
+drop database web;
+drop user james;
+create database web default charset 'UTF8';
+create user james identified with mysql_native_password by 'bond';
+grant all on web.* to james;
+-- create table member();
+use web;
+create table post(
+  code      int unique not null auto_increment,
+  member    int not null,
+  topic     varchar(800) not null,
+  detail    varchar(4000),
+  price     float,
+  latitude  decimal(10,6),
+  longitude decimal(10,6),
+  area      varchar(80)
+);
+create table photo(
+  code    int unique not null auto_increment,
+  path    varchar(200),
+  post    int not null
+);
+insert into post(member,topic) values(1, 'Big Bike for sales');
+insert into post(member,topic) values(1, 'ประกาศขายที่ดินย่านบางบัวทอง');
+insert into post(member,topic,detail)
+            values(1, 'Sport Car for sales', 'A 911 Porsche');
+insert into post(member,topic,detail)     
+            values(1, 'Home for sales', 'Near Bang Bua Tong');
+insert into post(member,topic,detail)
+            values(1, 'Cheap City Car', 'Toyoto Altis 2003');
