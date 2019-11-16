@@ -1,0 +1,12 @@
+
+
+<b>Topic: </b> <%= data.topic %> <br>
+<b>Price: </b> <%= data.price %> <br>
+<b>Detail:</b> <br>
+<%= data.detail %>
+
+<br>
+<b>Images:</b>
+<%  for (var i in image) { %>
+    <br><img src='/<%= image[i].path %>'>
+<%  } %>

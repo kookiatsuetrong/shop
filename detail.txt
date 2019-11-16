@@ -1,3 +1,41 @@
+Common Web Application
+var express = require('express')
+var app     = express()
+app.listen(2000)
+
+app.use( saveTime ) 
+app.get('/', checkUserProfile, showHome)
+app.get('/product/all',    showAllProduct)
+app.get('/product/detail', showProductDetal)
+app.get(['/product/edit', '/products/edit'], isOwner, showEditProduct)
+app.use( showError )
+
+function showError(req, res, next) {
+  res.render('error.html')
+  // no need to call next()
+}
+
+function saveTime(req, res, next) {
+  // save current to database
+  next() // call the next function
+}
+
+function showHome(req, res) { ... }
+
+function checkUserProfile(req, res, next) { 
+   //
+   //
+   next() // call the normal function
+}
+function isOwner(req, res, next) {
+  // check owner from database
+  if (this user is a shop owner) next()
+  else res.render('not-permission.html')
+}
+
+Middleware is a function that interrupt normal function.
+
+
 Installing MySQL on Windows:
 1. Download MySQL Community Edition (Zip Format)
 2. Extract to C:\mysql
@@ -11,6 +49,7 @@ Installing MySQL on Windows:
    Enter Password: ****
 7. Change the root password by execute this command:
    alter user root@localhost identified by 'p@ssword';
+
 
 drop database web;
 drop user james;
@@ -42,3 +81,8 @@ insert into post(member,topic,detail)
             values(1, 'Home for sales', 'Near Bang Bua Tong');
 insert into post(member,topic,detail)
             values(1, 'Cheap City Car', 'Toyoto Altis 2003');
+
+use web;
+insert into photo(path,post) values('photo-1.jpg',2);
+insert into photo(path,post) values('photo-2.jpg',2);
+insert into photo(path,post) values('photo-4.jpg',1);
