@@ -9,15 +9,40 @@ var mysql   = require('mysql')
 var pool    = mysql.createPool(source)
 var ejs     = require('ejs')
 server.engine('html', ejs.renderFile) // set EJS to default view engine
+var readBody = express.urlencoded({extended:false})
 
 server.get([ '/', '/home' ], showHome)
 server.get('/browse', showAll)
 server.get('/test', showTest)
 server.get('/result', showSearchResult)
 server.get('/detail', showDetail)
+server.get (['/join','/register'], showRegisterPage)
+server.post(['/join','/register'], readBody, saveNewMember)
 
 server.use( express.static('public') )
 server.use( showError )
+
+// 1. sensitive information -> HTTP POST
+// 2. HTTP Post in Express must be read by middleware
+// 3. the data will be availble at req.body
+function saveNewMember(req, res) {
+    var sql = 'insert into member(email,password,name)' +
+              '  values(?, sha2(?,512), ?)'
+    var data = [req.body.email,req.body.password,req.body.name]
+    pool.query(sql, data, function(error, result) {
+        var model = { }
+        if (error == null) {
+            model.message = 'Register Success'
+        } else {
+            model.message = 'Fail to register'
+        }
+        res.render('register-result.html', model) // <%= message %>
+    })
+}
+
+function showRegisterPage(req, res) {
+    res.render('register.html')
+}
 
 // localhost:2000/detail?code=7
 function showDetail(req,res) {

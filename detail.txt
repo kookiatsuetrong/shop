@@ -34,6 +34,12 @@ function isOwner(req, res, next) {
 }
 
 Middleware is a function that interrupt normal function.
+- express.static()
+- express.urlencoded()
+- showError
+
+HTTP GET,  request data will be available at req.query.xxx
+HTTP POST, you must call middleware express.urlencoded
 
 
 Installing MySQL on Windows:
@@ -86,3 +92,12 @@ use web;
 insert into photo(path,post) values('photo-1.jpg',2);
 insert into photo(path,post) values('photo-2.jpg',2);
 insert into photo(path,post) values('photo-4.jpg',1);
+
+create table member(
+  code       int unique not null auto_increment,
+  email      varchar(200) unique not null,
+  password   varchar(200) not null,
+  name       varchar(200) not null
+);
+insert into member(email,password,name)
+  values('james@bond.com', sha2('bond123',512), 'James Bond');
