@@ -1,1 +1,14 @@
-Hello <%= user.name %>
+<% include header.html %>
+
+
+<div class='container'>
+    Hello <%= user.name %>
+
+
+    <a href='/'>Home</a>
+    <a href='/post'>Post</a>
+    <a href='/logout'>Log Out</a>
+</div>
+
+<% include footer.html %>
+

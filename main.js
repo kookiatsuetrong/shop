@@ -24,8 +24,15 @@ server.post(['/join','/register'], readBody, saveNewMember)
 server.get ('/login', showLogInPage)
 server.post('/login', readBody, checkPassword)
 server.get ('/profile', readCookie, showProfilePage)
+server.get ('/logout', readCookie, logOutMember)
 server.use( express.static('public') )
 server.use( showError )
+
+function logOutMember(req, res) {
+    var card = req.cookies ? req.cookies.card : null
+    delete valid[card]
+    res.render('logout.html') 
+}
 
 function showProfilePage(req, res) {
     var card = null    // เริ่มให้ card เป็น null
@@ -41,6 +48,7 @@ function showProfilePage(req, res) {
         res.render('profile.html', model) // Hello <%= user.name %>
     } else {
         res.redirect('/login')
+        // res.render('login.html') // Will cause error
     }
 }
 
