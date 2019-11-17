@@ -1,5 +1,6 @@
+<% include header.html %>
 
-
+<div class='container'>
 <%  for (var i in all) { %>
     <%= all[i].topic %> - <%= all[i].detail %> 
     
@@ -7,3 +8,6 @@
     
     <br>
 <%  } %>
+</div>
+
+<% include footer.html %>

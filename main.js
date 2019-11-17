@@ -9,7 +9,7 @@ var mysql   = require('mysql')
 var pool    = mysql.createPool(source)
 var ejs     = require('ejs')
 server.engine('html', ejs.renderFile) // set EJS to default view engine
-var readBody = express.urlencoded({extended:false})
+var readBody = express.urlencoded({extended:false}) // true for accepting array
 
 server.get([ '/', '/home' ], showHome)
 server.get('/browse', showAll)
@@ -18,9 +18,28 @@ server.get('/result', showSearchResult)
 server.get('/detail', showDetail)
 server.get (['/join','/register'], showRegisterPage)
 server.post(['/join','/register'], readBody, saveNewMember)
+server.get ('/login', showLogInPage)
+server.post('/login', readBody, checkPassword)
 
 server.use( express.static('public') )
 server.use( showError )
+
+function checkPassword(req, res) {
+    var sql  = 'select * from member where ' +
+               '  email=? and password=sha2(?,512) '
+    var data = [ req.body.email, req.body.password ]
+    pool.query(sql, data, function(error, result) {
+        if (result.length == 1) {
+            res.send('Passed')
+        } else {
+            res.send('Failed')
+        }
+    })
+}
+
+function showLogInPage(req, res) {
+    res.render('login.html')
+}
 
 // 1. sensitive information -> HTTP POST
 // 2. HTTP Post in Express must be read by middleware
