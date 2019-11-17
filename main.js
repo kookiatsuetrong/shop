@@ -25,8 +25,36 @@ server.get ('/login', showLogInPage)
 server.post('/login', readBody, checkPassword)
 server.get ('/profile', readCookie, showProfilePage)
 server.get ('/logout', readCookie, logOutMember)
+server.get ('/post', readCookie, showPostPage)
+server.post('/post', readCookie, readBody, postMessage)
+
 server.use( express.static('public') )
 server.use( showError )
+
+function postMessage(req, res) {
+    var card = req.cookies ? req.cookies.card : null
+    if (valid[card]) {
+        var sql  = 'insert into post(topic,detail,member) ' +
+                   '  values(?,?,?) '
+        var data = [req.body.topic, req.body.detail, 
+                      valid[card].code ]
+        pool.query(sql, data, function(error, result) {
+            res.redirect('/detail?code=' + result.insertId)
+        })
+    } else {
+        res.redirect('/login')
+    }
+}
+
+function showPostPage(req, res) {
+    var card = req.cookies ? req.cookies.card : null
+    if (valid[card]) {
+        var model = { member: valid[card] }
+        res.render('post.html', model)
+    } else {
+        res.redirect('/login')
+    }
+}
 
 function logOutMember(req, res) {
     var card = req.cookies ? req.cookies.card : null
