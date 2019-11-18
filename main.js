@@ -1,5 +1,5 @@
 // download project from https://github.com/kookiatsuetrong/shop
-// npm install express ejs mysql cookie-parser
+// npm install express ejs mysql cookie-parser sharp multer
 var express = require('express')
 var server  = express()    // create server
 server.listen(2000)
@@ -10,6 +10,9 @@ var pool    = mysql.createPool(source)
 var ejs     = require('ejs')
 var parser  = require('cookie-parser') // load module
 var readCookie = parser()              // create parser
+var sharp   = require('sharp')
+var multer  = require('multer')
+var upload  = multer({dest:'public'})  // all uploaded files to public folder
 server.engine('html', ejs.renderFile)  // set EJS to default view engine
 var readBody = express.urlencoded({extended:false}) // true for accepting array
 var valid = [ ]
@@ -26,7 +29,7 @@ server.post('/login', readBody, checkPassword)
 server.get ('/profile', readCookie, showProfilePage)
 server.get ('/logout', readCookie, logOutMember)
 server.get ('/post', readCookie, showPostPage)
-server.post('/post', readCookie, readBody, postMessage)
+server.post('/post', readCookie, upload.array('photo'), postMessage)
 
 server.use( express.static('public') )
 server.use( showError )
@@ -88,7 +91,7 @@ function checkPassword(req, res) {
         if (result.length == 1) {
             var card = randomCard()
             valid[card] = result[0] // user information
-            res.header('Set-Cookie', 'card=' + card)
+            res.header('Set-Cookie', 'card='+card+';HttpOnly')
             res.redirect('/profile')
         } else {
             res.redirect('/login')
