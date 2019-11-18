@@ -44,18 +44,27 @@ function postMessage(req, res) {
         var data = [req.body.topic, req.body.detail, 
                     valid[card].code ]
         pool.query(sql, data, function(error, result) {
-            if (req.files != null) {      
+            if (req.files.length == 0) {
+                res.redirect('/detail?code=' + result.insertId)
+            } else {
+                var count = 0
                 for (var i in req.files) {
                     var photo = sharp(  'public/' + req.files[i].filename)
                                 .toFile('public/' + req.files[i].filename + '.jpg')
                                 .catch( function() { } )
-                    fs.unlink('public/' + req.files[i].filename, function() { })
                     var sql1  = 'insert into photo(path, post) values(?,?)'
                     var data1 = [req.files[i].filename + '.jpg', result.insertId]
-                    pool.query(sql1, data1, function(e,r) { })
-                }
+                    pool.query(sql1, data1, function(e,r) {
+                        count++
+                        if (count == req.files.length) {
+                            for (var j in req.files) {
+                                fs.unlink('public/' + req.files[j].filename, ()=>{}) 
+                            }
+                            res.redirect('/detail?code=' + result.insertId)
+                        }
+                    })
+                }   
             }
-            res.redirect('/detail?code=' + result.insertId)
         })
     } else {
         res.redirect('/login')
