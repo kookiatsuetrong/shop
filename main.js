@@ -36,6 +36,61 @@ server.use( showError )
 
 var fs = require('fs')
 
+// ภาพที่ผู้ใช้ Upload เข้ามาต้องทำ 3 อย่าง คือ
+// 1. convertPhoto() แปลงให้เป็นมาตรฐานเดียวกัน ในเว็บนี้คือ .jpg ไม่เกิน 640x640 pixel
+// 2. removePhoto() ลบ File เดิมทิ้งไป ถ้าอันไหนที่ไม่ใช่รูปภาพจะถูกตัดทิ้งไป
+// 3. insertPhoto() เอาชื่อ File ที่แปลงแล้วใส่ Database
+function convertPhoto(req, res, id) {
+    var count = 0
+    for (var i in req.files) {
+        var photo = sharp(  'public/' + req.files[i].filename)
+                    .resize({width:640,height:640,withoutEnlargement:true})
+                    .toFile('public/' + req.files[i].filename + '.jpg')
+                    .catch( function() { } )
+                    .finally( function() {
+                        count++
+                        if (count == req.files.length) {
+                            removePhoto(req, res, id)
+                        }
+                    })
+    }
+}
+
+function removePhoto(req, res, id) {
+    var count = 0
+    for (var i in req.files) {
+        fs.unlink('public/' + req.files[i].filename, function() {
+            count++
+            if (count == req.files.length) {
+                insertPhoto(req, res, id)
+            }
+        })
+    }
+}
+
+function insertPhoto(req, res, id) {
+    var count = 0
+    for (var i in req.files) {
+        fs.stat('public/' + req.files[i].filename + '.jpg', function(e,s) {
+            if (e == null) {
+                var sql  = 'insert into photo(path, post) values(?,?)'
+                var data = [req.files[i].filename + '.jpg', id]
+                pool.query(sql, data, function(e,r) {
+                    count++
+                    if (count == req.files.length) {
+                        res.redirect('/detail?code=' + id)
+                    }
+                })
+            } else {
+                count++
+                if (count == req.files.length) {
+                    res.redirect('/detail?code=' + id)
+                }
+            }
+        })
+    }
+}
+
 function postMessage(req, res) {
     var card = req.cookies ? req.cookies.card : null
     if (valid[card]) {
@@ -44,6 +99,8 @@ function postMessage(req, res) {
         var data = [req.body.topic, req.body.detail, 
                     valid[card].code ]
         pool.query(sql, data, function(error, result) {
+            convertPhoto(req, res, result.insertId)
+            /*
             if (req.files.length == 0) {
                 res.redirect('/detail?code=' + result.insertId)
             } else {
@@ -64,7 +121,7 @@ function postMessage(req, res) {
                         }
                     })
                 }   
-            }
+            } */
         })
     } else {
         res.redirect('/login')
