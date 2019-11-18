@@ -2,7 +2,7 @@
 // npm install express ejs mysql cookie-parser sharp multer
 var express = require('express')
 var server  = express()    // create server
-server.listen(2000)
+server.listen(80)
 var source  = {host:'localhost', database:'web',
                user:'james',     password:'bond'}
 var mysql   = require('mysql')
@@ -69,26 +69,17 @@ function removePhoto(req, res, id) {
 }
 
 function insertPhoto(req, res, id) {
-    var count = 0
     for (var i in req.files) {
-        fs.stat('public/' + req.files[i].filename + '.jpg', function(e,s) {
-            if (e == null) {
-                var sql  = 'insert into photo(path, post) values(?,?)'
-                var data = [req.files[i].filename + '.jpg', id]
-                pool.query(sql, data, function(e,r) {
-                    count++
-                    if (count == req.files.length) {
-                        res.redirect('/detail?code=' + id)
-                    }
-                })
-            } else {
-                count++
-                if (count == req.files.length) {
-                    res.redirect('/detail?code=' + id)
-                }
-            }
-        })
-    }
+        var file = req.files[i].filename + '.jpg'
+        try {
+        if (fs.statSync('public/' + file)) {
+            var sql  = 'insert into photo(path, post) values(?,?)'          
+            var data = [file, id]
+            pool.query(sql, data, function(e,r) {})
+	}
+        } catch (e) { }
+    }       
+    res.redirect('/detail?code=' + id)
 }
 
 function postMessage(req, res) {
@@ -100,28 +91,6 @@ function postMessage(req, res) {
                     valid[card].code ]
         pool.query(sql, data, function(error, result) {
             convertPhoto(req, res, result.insertId)
-            /*
-            if (req.files.length == 0) {
-                res.redirect('/detail?code=' + result.insertId)
-            } else {
-                var count = 0
-                for (var i in req.files) {
-                    var photo = sharp(  'public/' + req.files[i].filename)
-                                .toFile('public/' + req.files[i].filename + '.jpg')
-                                .catch( function() { } )
-                    var sql1  = 'insert into photo(path, post) values(?,?)'
-                    var data1 = [req.files[i].filename + '.jpg', result.insertId]
-                    pool.query(sql1, data1, function(e,r) {
-                        count++
-                        if (count == req.files.length) {
-                            for (var j in req.files) {
-                                fs.unlink('public/' + req.files[j].filename, ()=>{}) 
-                            }
-                            res.redirect('/detail?code=' + result.insertId)
-                        }
-                    })
-                }   
-            } */
         })
     } else {
         res.redirect('/login')
