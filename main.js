@@ -34,14 +34,27 @@ server.post('/post', readCookie, upload.array('photo'), postMessage)
 server.use( express.static('public') )
 server.use( showError )
 
+var fs = require('fs')
+
 function postMessage(req, res) {
     var card = req.cookies ? req.cookies.card : null
     if (valid[card]) {
         var sql  = 'insert into post(topic,detail,member) ' +
-                   '  values(?,?,?) '
+                '  values(?,?,?) '
         var data = [req.body.topic, req.body.detail, 
-                      valid[card].code ]
+                    valid[card].code ]
         pool.query(sql, data, function(error, result) {
+            if (req.files != null) {      
+                for (var i in req.files) {
+                    var photo = sharp(  'public/' + req.files[i].filename)
+                                .toFile('public/' + req.files[i].filename + '.jpg')
+                                .catch( function() { } )
+                    fs.unlink('public/' + req.files[i].filename, function() { })
+                    var sql1  = 'insert into photo(path, post) values(?,?)'
+                    var data1 = [req.files[i].filename + '.jpg', result.insertId]
+                    pool.query(sql1, data1, function(e,r) { })
+                }
+            }
             res.redirect('/detail?code=' + result.insertId)
         })
     } else {
