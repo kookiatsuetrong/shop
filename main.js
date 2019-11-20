@@ -35,14 +35,14 @@ server.post('/post',    readCookie, upload.array('photo'), convert, postMessage)
 server.use( express.static('public') )
 server.use( showError )
 
-// file ที่ผู้ใช้ upload ขี้นมา อาจจะไม่ใช่รูปภาพหรือเป็นรูปภาพ png, jpg หรืออื่นๆ 
-// ดังนั้น file ที่ผู้ใช้ upload เข้ามาต้องทำ 3 อย่าง คือ
-// 1. convert photo แปลงให้เป็นมาตรฐานเดียวกัน ในเว็บนี้คือ .jpg ไม่เกิน 640x640 pixel
-// เช่น ผู้ใช้ upload มา 4 files ได้ temporary file คือ aaaa, bbbb, cccc, dddd
-// แต่มีแค่ 3 files เป็นรูปภาพคือ aaaa, bbbb, dddd ระบบนี้ใช้ sharp แปลงเป็น .jpg ก่อน 
-// ดังนั้นจะได้ aaaa.jpg, bbbb.jpg, dddd.jpg เก็บไว้ใน aray ส่วน cccc แปลงแล้วเกิด error 
-// 2. remove temporary ลบ file ชั่วคราวทิ้งไปหมดเลย ดังนั้นลบ aaaa, bbbb, cccc, dddd
-// แต่ยังหลือคือ aaaa.jpg, bbbb.jpg, dddd.jpg ส่วน cccc ไม่ใช่รูปภาพก็จะไม่มี cccc.jpg อยู่แล้ว
+// file ที่ผู้ใช้ upload ขี้นมา อาจจะเป็นรูปภาพหรือไม่ใช่รูปภาพ อาจจะเป็น png, jpg หรืออื่นๆ 
+// ดังนั้น file ที่ผู้ใช้ upload เข้ามา ต้องแปลง file ให้เป็นมาตรฐานเดียวกัน นั่นคือต้องทำ 3 อย่าง
+// 1. convert photo ในเว็บนี้คือ .jpg ไม่เกิน 640x640 pixel
+// เช่น ผู้ใช้ upload มา 4 files ตัว multer จะสร้าง temporary file ให้ 4 files
+// จากนั้นใช้ sharp ลองแปลงให้เป็น file มาตรฐานเดียวกัน ถ้าแปลงได้จะได้ .jpg เป็น file ใหม่
+// และต้องเก็บชื่อ .jpg ที่ได้มา ลง array ไว้ด้วย ชื่อ req.photo เพื่อให้ function ถัดไปเอาไปใช้งาน
+// ถ้าแปลงไม่ได้นั่นก็คือไม่ใช่รูปภาพ อาจจะเป็นข้อมูลอย่างอื่นที่ถูกส่งเข้ามา
+// 2. remove temporary ลบ file ชั่วคราวทิ้งไปหมดเลย 
 // 3. insert photo เอาชื่อ file ที่แปลงแล้วใส่ database ถ้าอันไหนที่ไม่ใช่รูปภาพก็จะไม่มีข้อมูล
 
 function convert(req, res, next) {
@@ -53,10 +53,10 @@ function convert(req, res, next) {
 		.resize({width:640, height:640,
 				fit:'inside', withoutEnlargement:true})
 		.toFile('public/' + file.filename + '.jpg', function(e,r) {
-			if (e == null) {
+			if (e == null) { // แปลงแล้วไม่มี error ต้องเก็บชื่อ file ไว้ด้วย
 				req.photo.push(file.filename + '.jpg')
 			}
-			// 2. ลบ file ชั่วคราวทิ้งไป
+			// 2. ลบ file ชั่วคราวทิ้งไปให้หมด
 			fs.unlink('public/' + file.filename, function() { 
 				count++
 				if (count == req.files.length) {
