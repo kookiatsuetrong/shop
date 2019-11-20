@@ -5,43 +5,41 @@
 header img {
     width: 100%;
 }
-.social-link {
-    width: 10rem;
-    margin-top: -2.1rem;
+.logo {
+    display: inline-block;
+}
+@media (max-width:512px) {
+    .menu-right {
+        display: none;
+    }
+}
+.menu-right {
+    margin-top: 0.45rem;
     float: right;
-    text-align: right;
 }
-.social-link svg {
-    width: 1rem;
-}
-.social-link svg:hover {
-    color: var(--steel-blue);
-}
-.menu-bar {
-    background: var(--belt-background);
-    height: 3rem;
-    padding-top: 0.60rem;
-}
-.menu-bar a {
-    margin-right: 2rem;
-}
-.menu-bar .btn {
-    float: right;
-    margin-top: -0.25rem;
-    margin-right: 0;
+.menu-right a {
+    color: white;
+    margin-left: 1rem;
 }
 .banner {
+    padding-top: 1rem;
     height: 40rem;
     background-image: url(main.jpg);
     background-size: cover;
     color: white;
 }
 .banner h1 {
-    padding-top: 4rem;
+    padding-top: 8rem;
     font-size: 4rem;
+    text-shadow: 0 0 2rem black;
+}
+.banner h2 {
+    text-shadow: 0 0 1rem black;
 }
 .banner .signup {
     margin-top: 2rem;
+    border-width: 0.2rem;
+    border-color: var(--footer-background);
     border-radius: 1.5rem;
     background: white;
     color: blue;
@@ -76,9 +74,8 @@ footer {
 }
 footer h5 {
     font-size: 1rem;
-    margin-left: 2rem;
 }
 footer h6 {
     font-size: 0.8rem;
-    margin-left: 2rem;
+    margin-left: 0.5rem;
 }
