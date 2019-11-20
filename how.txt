@@ -1,0 +1,19 @@
+-- create an ubuntu server 19.04, and allow HTTP traffic
+sudo apt update
+sudo apt install npm
+sudo npm install n -g
+sudo n latest
+node -v
+
+git clone https://github.com/kookiatsuetrong/shop
+cd shop
+git pull
+
+sudo apt install mysql-server
+sudo mysql
+source schema.txt
+exit
+
+npm install express ejs mysql cookie-parser sharp multer
+
+sudo node main.js
