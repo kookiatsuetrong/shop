@@ -7,7 +7,7 @@ grant all on web.* to james;
 use web;
 create table post(
   code      int unique not null auto_increment,
-  `member`    int not null,
+  `member`  int not null,
   topic     varchar(800) not null,
   detail    varchar(4000),
   price     float,

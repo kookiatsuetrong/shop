@@ -1,16 +1,155 @@
-<% include header.html %>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Online</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/bootstrap.css" >
+        <link rel="stylesheet" href="/common.css" >
+    </head>
+    <body>
+        <header>
+            <div class="container top-bar">
+                <h3>TruckDriver</h3>
+                <div class="social-link">
+                    Follow Us 
+                    <a href="#">
+                    <svg class="svg-icon" viewBox="0 0 20 20">
+                        <path d="M10,1.375c-3.17,0-5.75,2.548-5.75,5.682c0,6.685,5.259,11.276,5.483,11.469c0.152,0.132,0.382,0.132,0.534,0c0.224-0.193,5.481-4.784,5.483-11.469C15.75,3.923,13.171,1.375,10,1.375 M10,17.653c-1.064-1.024-4.929-5.127-4.929-10.596c0-2.68,2.212-4.861,4.929-4.861s4.929,2.181,4.929,4.861C14.927,12.518,11.063,16.627,10,17.653 M10,3.839c-1.815,0-3.286,1.47-3.286,3.286s1.47,3.286,3.286,3.286s3.286-1.47,3.286-3.286S11.815,3.839,10,3.839 M10,9.589c-1.359,0-2.464-1.105-2.464-2.464S8.641,4.661,10,4.661s2.464,1.105,2.464,2.464S11.359,9.589,10,9.589"></path>
+                    </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="menu-bar">
+                <div class="container">
+                    <a href="/login">Log In</a>
+                    <a href="#">Register</a>
+                    <a href="/about">About Us</a>
+                    <a href="#" class="btn btn-primary">Sign Up</a>
+                </div>
+            </div>
+            <div class="banner">
+                <div class="container">
+                    <h1>Find Your Dream Truck</h1>
+                    <h2>Becoming a member of TruckDriver.com</h2>
+                    <a href="/signup" class="btn btn-primary signup">Sign Up</a>
+                </div>
+                
+            </div>
+        </header>
 
-<div class='container'>
-    <h3>Welcome</h3>
-    <form action='/result'>
-        <input name='product'>
-        <button>Search</button>
-    </form>
-</div>
+        <main>
+            <div class='search-panel'>
+                <div class='container'>
+                    <form action='/result'>
+                        <div class='input-group'>
+                            <input name='product' class='form-control'
+                                placeholder='Search for trucks or parts'
+                                >
+                            <div class='input-group-append'>
+                                <button class='btn btn-primary'>Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-<script>
-    var b = document.querySelector('body')
-    b.innerHTML += 'Your Cookie is: ' + document.cookie
-</script>
-
-<% include footer.html %>
+            <div class="container">
+                <h3>Our Services</h3>
+                <div class="row">
+                    <div class="col-7">
+                        <img src="main.jpg" class="img-fluid">
+                    </div>
+                    <div class="col-5">
+                        <h5>Outsourcing Service</h5>
+                        <p>Ooo oooo oo ooooo o ooo. Ooo oooo oo ooooo o ooo. Ooo oooo oo ooooo o ooo. Ooo oooo oo ooooo o ooo. 
+                        </p>
+                        <h5>In-house Training</h5>
+                        <p>Ooo oooo oo ooooo o ooo. Ooo oooo oo ooooo o ooo. Ooo oooo oo ooooo o ooo. Ooo oooo oo ooooo o ooo. 
+                        </p>
+                        <h5>Truck Fixing Service</h5>
+                        <p>Ooo oooo oo ooooo o ooo. Ooo oooo oo ooooo o ooo. Ooo oooo oo ooooo o ooo. Ooo oooo oo ooooo o ooo. 
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="customer-list">
+                <div class="container">
+                    <img src="main.jpg">
+                </div>
+            </div>
+            <div class="container">
+                <h3>Ooo Ooooo Oooo Ooo</h3>
+                <div class="row">
+                    <div class="col-6 col-md-3">
+                        <div class="box">
+                            <img src="main.jpg" class="img-fluid">
+                            <h5>Ooo Oooo</h5>
+                            <p>Oooo o ooo oo oooo ooo. Oooo o ooo oo oooo ooo. Oooo o ooo oo oooo ooo.</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="box">
+                            <img src="main.jpg" class="img-fluid">
+                            <h5>Ooo Oooo</h5>
+                            <p>Oooo o ooo oo oooo ooo. Oooo o ooo oo oooo ooo. Oooo o ooo oo oooo ooo.</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="box">
+                            <img src="main.jpg" class="img-fluid">
+                            <h5>Ooo Oooo</h5>
+                            <p>Oooo o ooo oo oooo ooo. Oooo o ooo oo oooo ooo. Oooo o ooo oo oooo ooo.</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="box">
+                            <img src="main.jpg" class="img-fluid">
+                            <h5>Ooo Oooo</h5>
+                            <p>Oooo o ooo oo oooo ooo. Oooo o ooo oo oooo ooo. Oooo o ooo oo oooo ooo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <div class="container">
+                <h3>TruckDriver.com</h3>
+    
+                <div class="row">
+                    <div class="col-6 col-md-3">
+                        <h5>Company</h5>
+                        <h6>- History</h6>
+                        <h6>- About Us</h6>
+                        <h6>- Contact Us</h6>
+                        <h6>- Map</h6>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <h5>Products</h5>
+                        <h6>- Stationery</h6>
+                        <h6>- Paper and Canvas</h6>
+                        <h6>- Brushes</h6>
+                        <h6>- Color</h6>
+                        <h6>- Delivery Service</h6>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <h5>Company</h5>
+                        <h6>- History</h6>
+                        <h6>- History</h6>
+                        <h6>- History</h6>
+                        <h6>- History</h6>
+                        <h6>- History</h6>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <h5>Company</h5>
+                        <h6>- History</h6>
+                        <img src="main.jpg" class="img-fluid">
+                    </div>
+                </div>
+                <hr>
+                <p>Copyright 2019, TruckDriver.com</p>
+            </div>
+        </footer>
+    </body>
+</html>

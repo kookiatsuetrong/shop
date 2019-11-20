@@ -3,7 +3,7 @@
 var fs      = require('fs')
 var express = require('express')
 var server  = express()    // create server
-server.listen(2000)
+server.listen(80)
 var source  = { host:'localhost', database:'web',
 				user:'james',     password:'bond'}
 var mysql   = require('mysql')

@@ -1,0 +1,84 @@
+:root {
+    --footer-background: steelblue;
+    --belt-background: #bdf;
+}
+header img {
+    width: 100%;
+}
+.social-link {
+    width: 10rem;
+    margin-top: -2.1rem;
+    float: right;
+    text-align: right;
+}
+.social-link svg {
+    width: 1rem;
+}
+.social-link svg:hover {
+    color: var(--steel-blue);
+}
+.menu-bar {
+    background: var(--belt-background);
+    height: 3rem;
+    padding-top: 0.60rem;
+}
+.menu-bar a {
+    margin-right: 2rem;
+}
+.menu-bar .btn {
+    float: right;
+    margin-top: -0.25rem;
+    margin-right: 0;
+}
+.banner {
+    height: 40rem;
+    background-image: url(main.jpg);
+    background-size: cover;
+    color: white;
+}
+.banner h1 {
+    padding-top: 4rem;
+    font-size: 4rem;
+}
+.banner .signup {
+    margin-top: 2rem;
+    border-radius: 1.5rem;
+    background: white;
+    color: blue;
+    width: 10rem;
+    height: 3rem;
+    padding-top: 0.6rem;
+}
+.banner .signup:hover {
+    background: var(--belt-background);
+    color: black;
+    opacity: 0.75;
+}
+
+.search-panel {
+    margin-bottom: 2rem;
+    padding: 1.5rem 0;
+    background: var(--footer-background);
+}
+.customer-list {
+    margin: 1rem 0;
+    background: var(--belt-background);
+    padding: 0.5rem 0;
+}
+.customer-list img {
+    height: 3rem;
+}
+
+footer {
+    color: white;
+    background: var(--footer-background);
+    padding: 1rem 0 0.2rem 0;
+}
+footer h5 {
+    font-size: 1rem;
+    margin-left: 2rem;
+}
+footer h6 {
+    font-size: 0.8rem;
+    margin-left: 2rem;
+}
