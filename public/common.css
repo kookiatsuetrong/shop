@@ -51,6 +51,7 @@ header img {
     background: var(--belt-background);
     color: black;
     opacity: 0.75;
+    border-color: dodgerblue;
 }
 
 .search-panel {
@@ -78,4 +79,15 @@ footer h5 {
 footer h6 {
     font-size: 0.8rem;
     margin-left: 0.5rem;
+}
+
+.zoom-container {
+    overflow: hidden;
+    border: 2px solid lightblue;
+}
+.zoom-container img {
+    transition: transform 0.1s linear;
+}
+.zoom-container img:hover {
+    transform: scale(1.2);
 }

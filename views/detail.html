@@ -1,16 +1,27 @@
 <% include header.html %>
 <div class='container'>
 
-<b>Topic: </b> <%= data.topic %> <br>
-<b>Price: </b> <%= data.price %> <br>
-<b>Detail:</b> <br>
-<%= data.detail %>
+	<b>Topic: </b> <%= data.topic %> <br>
+	<b>Price: </b> <%= data.price %> <br>
+	<b>Detail:</b> <br>
+	<%= data.detail %>
 
-<br>
-<b>Images:</b>
-<%  for (var i in image) { %>
-    <br><img src='/<%= image[i].path %>'>
-<%  } %>
-
+	<br>
+	<b>Images:</b>
+	<div class='row'>
+		<%  for (var i in image) { %>
+			<div class='col-12 col-sm-6 col-md-4 col-lg-3'>
+				<div class='zoom-container'>
+					<img src='/<%= image[i].path %>' class='img-fluid'>
+				</div>
+			</div>
+		<%  } %>
+	</div>
 </div>
+<style>
+	.row > * {
+		margin-bottom: 1rem;
+	}
+</style>
+
 <% include footer.html %>

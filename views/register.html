@@ -1,13 +1,28 @@
 <% include header.html %>
 <div class='container'>
 
-<form method='post'>
-    <input name='email' placeholder='Your Email'>
-    <input name='password' placeholder='Your Password'
-        type='password'>
-    <input name='name' placeholder='Your Full Name'>
-    <button>Register</button>
-</form>
+	<form method='post'>
+		<input name='email' 
+			placeholder='Your Email'
+			class='form-control'
+			autofocus 
+			required>
+		<input name='password' 
+			placeholder='Your Password'
+			type='password'
+			class='form-control'
+			required>
+		<input name='name' 
+			placeholder='Your Full Name'
+			class='form-control'
+			required>
+		<button class='btn btn-primary'>Register</button>
+	</form>
+
+	<style>
+		form { max-width: 320px; margin: 2rem auto; }
+		input { margin-bottom: 0.5rem; }
+	</style>
 
 </div>
 <% include footer.html %>

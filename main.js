@@ -217,6 +217,7 @@ function showSearchResult(req, res) {
 	pool.query(sql, data, function (error, data) {
 		var model = { }
 		model.all = data
+		model.product = req.query.product
 		res.render('result.html', model)
 	})
 }
