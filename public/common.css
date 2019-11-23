@@ -14,6 +14,7 @@ hr {
 }
 .logo a {
 	color: white;
+	transition: text-shadow 0.1s linear;
 }
 .logo a:hover {
 	text-decoration: none;
