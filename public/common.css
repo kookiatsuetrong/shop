@@ -1,93 +1,104 @@
 :root {
-    --footer-background: steelblue;
-    --belt-background: #bdf;
+	--footer-background: steelblue;
+	--belt-background: #bdf;
 }
 header img {
-    width: 100%;
+	width: 100%;
+}
+hr {
+	border-color: white;
+	opacity: 0.5;
 }
 .logo {
-    display: inline-block;
+	display: inline-block;
+}
+.logo a {
+	color: white;
+}
+.logo a:hover {
+	text-decoration: none;
+	text-shadow: 0 0 2rem black;
 }
 @media (max-width:512px) {
-    .menu-right {
-        display: none;
-    }
+	.menu-right {
+		display: none;
+	}
 }
 .menu-right {
-    margin-top: 0.45rem;
-    float: right;
+	margin-top: 0.45rem;
+	float: right;
 }
 .menu-right a {
-    color: white;
-    margin-left: 1rem;
+	color: white;
+	margin-left: 1rem;
 }
 .banner {
-    padding-top: 1rem;
-    height: 40rem;
-    background-image: url(main.jpg);
-    background-size: cover;
-    color: white;
+	padding-top: 1rem;
+	height: 40rem;
+	background-image: url(main.jpg);
+	background-size: cover;
+	color: white;
 }
 .banner h1 {
-    padding-top: 8rem;
-    font-size: 4rem;
-    text-shadow: 0 0 2rem black;
+	padding-top: 8rem;
+	font-size: 4rem;
+	text-shadow: 0 0 2rem black;
 }
 .banner h2 {
-    text-shadow: 0 0 1rem black;
+	text-shadow: 0 0 1rem black;
 }
 .banner .signup {
-    margin-top: 2rem;
-    border-width: 0.2rem;
-    border-color: var(--footer-background);
-    border-radius: 1.5rem;
-    background: white;
-    color: blue;
-    width: 10rem;
-    height: 3rem;
-    padding-top: 0.6rem;
+	margin-top: 2rem;
+	border-width: 0.2rem;
+	border-color: var(--footer-background);
+	border-radius: 1.5rem;
+	background: white;
+	color: dodgerblue;
+	width: 10rem;
+	height: 3rem;
+	padding-top: 0.5rem;
 }
 .banner .signup:hover {
-    background: var(--belt-background);
-    color: black;
-    opacity: 0.75;
-    border-color: dodgerblue;
+	background: var(--belt-background);
+	color: black;
+	box-shadow: 0 0 1rem black;
+	border-color: dodgerblue;
 }
 
 .search-panel {
-    margin-bottom: 2rem;
-    padding: 1.5rem 0;
-    background: var(--footer-background);
+	margin-bottom: 2rem;
+	padding: 1.5rem 0;
+	background: var(--footer-background);
 }
 .customer-list {
-    margin: 1rem 0;
-    background: var(--belt-background);
-    padding: 0.5rem 0;
+	margin: 1rem 0;
+	background: var(--belt-background);
+	padding: 0.5rem 0;
 }
 .customer-list img {
-    height: 3rem;
+	height: 3rem;
 }
 
 footer {
-    color: white;
-    background: var(--footer-background);
-    padding: 1rem 0 0.2rem 0;
+	color: white;
+	background: var(--footer-background);
+	padding: 1rem 0 0.2rem 0;
 }
 footer h5 {
-    font-size: 1rem;
+	font-size: 1rem;
 }
 footer h6 {
-    font-size: 0.8rem;
-    margin-left: 0.5rem;
+	font-size: 0.8rem;
+	margin-left: 0.5rem;
 }
 
 .zoom-container {
-    overflow: hidden;
-    border: 2px solid lightblue;
+	overflow: hidden;
+	border: 2px solid lightblue;
 }
 .zoom-container img {
-    transition: transform 0.1s linear;
+	transition: transform 0.1s linear;
 }
 .zoom-container img:hover {
-    transform: scale(1.2);
+	transform: scale(1.2);
 }
