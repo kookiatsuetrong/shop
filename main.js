@@ -31,9 +31,21 @@ server.get ('/profile', readCookie, showProfilePage)
 server.get ('/logout',  readCookie, logOutMember)
 server.get ('/post',    readCookie, showPostPage)
 server.post('/post',    readCookie, upload.array('photo'), convert, postMessage)
-
+server.get ('/api/all', listAll)
+server.get ('/api/test', listTest)
 server.use( express.static('public') )
 server.use( showError )
+
+function listTest(req, res) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.send(['Latte','Mocha','Espresso'])
+}
+function listAll(req, res) {
+  res.header('Access-Control-Allow-Origin', '*')
+  pool.query('select * from post', function(error, data) {
+    res.send(data)
+  })
+}
 
 // file ที่ผู้ใช้ upload ขี้นมา อาจจะเป็นรูปภาพหรือไม่ใช่รูปภาพ อาจจะเป็น png, jpg หรืออื่นๆ 
 // ดังนั้น file ที่ผู้ใช้ upload เข้ามา ต้องแปลง file ให้เป็นมาตรฐานเดียวกัน นั่นคือต้องทำ 3 อย่าง
